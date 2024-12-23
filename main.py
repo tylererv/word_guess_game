@@ -6,7 +6,7 @@ import pyttsx3
 recog = sr.Recognizer()
 
 
-# Converts speech to text
+# Converts speech to text   ___
 def textToSpeech(command) -> None:
     engine = pyttsx3.init()  # Initialize the text-to-speech engine
     engine.say(command)  # Queue the provided text (command) for speech synthesis
