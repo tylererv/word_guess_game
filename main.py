@@ -6,14 +6,7 @@ import pyttsx3
 recog = sr.Recognizer()
 
 
-# Converts speech to text   ___
-def textToSpeech(command) -> None:
-    engine = pyttsx3.init()  # Initialize the text-to-speech engine
-    engine.say(command)  # Queue the provided text (command) for speech synthesis
-    engine.runAndWait()  # Process the queue and produce speech output
-
-
-#
+# Recognizes user audio using computers default microphone and returns the users audio
 def recogUserAudio(listenDuration: float):
     with sr.Microphone() as source:
 
@@ -28,7 +21,8 @@ def recogUserAudio(listenDuration: float):
         return userAudio
 
 
-def audioToText(audio):
+# Converts the audio from recogUserAudio to a string
+def audioToText(audio) -> str:
     userText: str = None
 
     try:
@@ -39,13 +33,21 @@ def audioToText(audio):
 
     except sr.UnknownValueError:
         # Handle case where audio is not understandable
-        print("Sorry, could not understand audio.")
+        print("Sorry, could not understand audio try again.")
+        run()
 
     except sr.RequestError as e:
         # Handle case where Google API is unavailable or other errors occur
         print(f"Error: Could not request results from Google Speech Recognition service; {e}")
 
     return userText
+
+
+# Converts speech to text
+def textToSpeech(command) -> None:
+    engine = pyttsx3.init()  # Initialize the text-to-speech engine
+    engine.say(command)  # Queue the provided text (command) for speech synthesis
+    engine.runAndWait()  # Process the queue and produce speech output
 
 
 def run() -> None:
